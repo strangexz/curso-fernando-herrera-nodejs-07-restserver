@@ -17,7 +17,7 @@ let urlDB;
 if (false) {
     urlDB = 'mongodb://localhost:27017/cafeDB';
 } else {
-    urlDB = 'mongodb+srv://strangexz:UrFaPuxxVpOQ6kbi@cluster0-mpdyn.mongodb.net/cafeDB';
+    urlDB = process.env.MONGO_URI;
 }
 
 process.env.URLDB = urlDB;
