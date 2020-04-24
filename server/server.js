@@ -3,7 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const colors = require('colors');
-const route = require('./routes/usuario');
+
+const routeIndex = require('./routes/index');
 
 const app = express();
 const port = process.env.PORT;
@@ -17,7 +18,7 @@ app.use(bodyParser.urlencoded({
 // parse application/json
 app.use(bodyParser.json());
 
-app.use(route);
+app.use(routeIndex);
 
 mongoose.connect(
     // 'mongodb+srv://username:password@cluster0-erizp.mongodb.net/database?retryWrites=true&w=majority', {
