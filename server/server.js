@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const colors = require('colors');
+const path = require('path');
 
 const routeIndex = require('./routes/index');
 
@@ -17,6 +18,11 @@ app.use(bodyParser.urlencoded({
 
 // parse application/json
 app.use(bodyParser.json());
+
+//habilitar carpeta publica
+app.use(express.static(path.resolve(__dirname, '../public/')));
+
+console.log(path.resolve(__dirname, '../public/'));
 
 app.use(routeIndex);
 
