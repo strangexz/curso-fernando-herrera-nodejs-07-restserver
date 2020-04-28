@@ -29,8 +29,9 @@ Verifica rola admin
 */
 let verficaAdminRole = (req, res, next)=>{
     let usuario = req.usuario;
+    console.log(usuario);
 
-    if (!usuario.role !== 'ADMIN_ROLE') {
+    if (usuario.role !== 'ADMIN_ROLE') {
         return res.status(401).json({
             ok: false,
             err: {
