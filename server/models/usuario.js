@@ -18,11 +18,6 @@ let usuarioSchema = new mongoose.Schema({
         required: [true, 'El telefono es necesario'],
         unique:true,
     },
-    // mobile:{
-    //     type:String,
-    //     required:true,
-    //     unique:true,
-    // },
     password: {
         type: String,
         required: [true, 'La contraseña es necesaria'],
