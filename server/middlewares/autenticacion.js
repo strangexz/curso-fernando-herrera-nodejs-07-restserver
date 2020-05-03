@@ -43,7 +43,34 @@ let verficaAdminRole = (req, res, next)=>{
     next();
 }
 
+/**
+Verificar token por url para imagenes
+*/
+let verificaTokenImg = (req, res, next) => {
+    let token = req.query.token;
+
+    // console.log(token);
+
+    jwt.verify(token, process.env.SEED, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({
+                ok: false,
+                err
+            })
+        }
+
+        req.usuario = decoded.usuario;
+
+        next();
+    });
+
+    // res.json({
+    //     token
+    // });
+};
+
 module.exports = {
     verificaToken,
-    verficaAdminRole
+    verficaAdminRole,
+    verificaTokenImg
 }

@@ -4,10 +4,7 @@ const bcrypt = require('bcrypt');
 const _ = require('underscore');
 
 const Usuario = require('../models/usuario');
-const {
-    verificaToken,
-    verficaAdminRole
-} = require('../middlewares/autenticacion');
+const { verificaToken, verficaAdminRole } = require('../middlewares/autenticacion');
 const app = express();
 
 app.get('/usuario', verificaToken, (req, res) => {
@@ -19,8 +16,8 @@ app.get('/usuario', verificaToken, (req, res) => {
     limite = Number(limite);
 
     Usuario.find({
-            estado: true
-        }, 'nombre email estado role google img')
+        estado: true
+    }, 'nombre email estado role google img')
         .skip(desde)
         .limit(limite)
         .exec((err, usuarios) => {
@@ -48,32 +45,32 @@ app.get('/usuario', verificaToken, (req, res) => {
 
 app.post('/usuario',
     [verificaToken,
-    verficaAdminRole], (req, res) => {
-        let body = req.body;
+        verficaAdminRole], (req, res) => {
+            let body = req.body;
 
-        let usuario = new Usuario({
-            nombre: body.nombre,
-            email: body.email,
-            password: bcrypt.hashSync(body.password, 10),
-            role: body.role,
-        });
-
-        usuario.save((err, usuarioDB) => {
-            if (err) {
-                return res.status(400).json({
-                    ok: false,
-                    err
-                });
-            }
-
-            res.json({
-                ok: true,
-                usuario: usuarioDB
+            let usuario = new Usuario({
+                nombre: body.nombre,
+                email: body.email,
+                password: bcrypt.hashSync(body.password, 10),
+                role: body.role,
             });
+
+            usuario.save((err, usuarioDB) => {
+                if (err) {
+                    return res.status(400).json({
+                        ok: false,
+                        err
+                    });
+                }
+
+                res.json({
+                    ok: true,
+                    usuario: usuarioDB
+                });
+            });
+
+
         });
-
-
-    });
 
 app.put('/usuario/:id',
     verificaToken,

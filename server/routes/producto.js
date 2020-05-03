@@ -13,7 +13,7 @@ const Producto = require('../models/producto');
 app.get('/productos/buscar/:termino', verificaToken, (req, res) => {
     let termino = req.params.termino;
     let regex = new RegExp(termino, 'i');
-    Producto.find({nombre: regex}).populate('usuario', 'nombre email').exec((err, productos) => {
+    Producto.find({ nombre: regex }).populate('usuario', 'nombre email').exec((err, productos) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
@@ -43,9 +43,7 @@ app.get('/productos', verificaToken, (req, res) => {
     let limite = req.query.limite || 5;
     limite = Number(limite);
 
-    Producto.find({
-            disponible: true
-        })
+    Producto.find({ disponible: true })
         .sort('descripcion')
         .populate('usuario', 'nombre email')
         .populate('categoria', 'descripcion')
@@ -87,9 +85,7 @@ app.get('/producto/:id', verificaToken, (req, res) => {
     let id = req.params.id;
 
     if (mongoose.Types.ObjectId.isValid(id)) {
-        Producto.findById({
-                _id: mongoose.Types.ObjectId(id)
-            })
+        Producto.findById({ _id: mongoose.Types.ObjectId(id) })
             .populate('usuario', 'nombre email')
             .populate('categoria', 'descripcion')
             .exec((err, productoDB) => {
